@@ -1,5 +1,6 @@
 package com.ufrn.imd.ecommerce.repositories;
 
+import com.ufrn.imd.ecommerce.models.UsuarioAbstrato;
 import com.ufrn.imd.ecommerce.models.UsuarioConcreto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,6 +12,9 @@ import java.util.List;
 @Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioConcreto, Long> {
 
+
+    @Query("SELECT u FROM UsuarioConcreto u WHERE u.email = ?1")
+    UsuarioAbstrato findByEmail(String email);
 
     @Query("SELECT u FROM UsuarioConcreto u JOIN FETCH u.enderecos WHERE u.id = :usuarioId")
     UsuarioConcreto findUsuarioConcretoByIdWithEnderecos(@Param("usuarioId") Long usuarioId);

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro</title>
+</head>
+<body>
+<h2>Cadastro</h2>
+
+<form action="/signup" method="post" th:object="${usuario}">
+    <div>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" th:field="*{nome}" required>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" th:field="*{email}" required>
+    </div>
+    <div>
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" th:field="*{senha}" required>
+    </div>
+    <div>
+        <label for="tipo">Tipo:</label>
+        <select id="tipo" name="tipo" th:field="*{tipo}">
+            <option value="true">Usuário</option>
+            <option value="false">Anunciante</option>
+        </select>
+    </div>
+    <div th:if="${usuario.tipo}">
+        <!-- Campos adicionais para o usuário -->
+        <!-- Por exemplo: número de telefone, endereço, etc. -->
+    </div>
+    <div th:unless="${usuario.tipo}">
+        <!-- Campos adicionais para o anunciante -->
+        <!-- Por exemplo: documento, informações de negócio, etc. -->
+    </div>
+    <div>
+        <button type="submit">Cadastrar</button>
+    </div>
+</form>
+
+<p>Já tem uma conta? <a href="/login">Faça login aqui</a></p>
+</body>
+</html>

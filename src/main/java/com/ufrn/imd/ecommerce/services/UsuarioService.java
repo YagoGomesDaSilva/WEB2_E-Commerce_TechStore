@@ -1,5 +1,6 @@
 package com.ufrn.imd.ecommerce.services;
 
+import com.ufrn.imd.ecommerce.models.UsuarioAbstrato;
 import com.ufrn.imd.ecommerce.models.UsuarioConcreto;
 import com.ufrn.imd.ecommerce.repositories.UsuarioRepository;
 import org.springframework.stereotype.Service;
@@ -25,4 +26,19 @@ public class UsuarioService {
         // to-do validações para criação do usuário;
         usuarioRepository.save(usuario);
     }
+
+
+    public UsuarioAbstrato authenticate(String email, String senha){
+        // Buscar o usuário pelo email
+        UsuarioAbstrato usuario = usuarioRepository.findByEmail(email);
+
+        // Verificar se o usuário foi encontrado e se a senha corresponde
+        if (usuario != null && usuario.getSenha().equals(senha)) {
+            return usuario; // Retorna o usuário autenticado
+        } else {
+            return null; // Retorna null se a autenticação falhar
+        }
+    }
+
+
 }
